@@ -142,4 +142,38 @@
 
 			});
 
+
+
+
+
+			
+	const carousel = document.querySelector('.carousel-scroll');
+	let scrollAmount = 0;
+
+	setInterval(() => {
+		const slideWidth = carousel.querySelector('img').clientWidth + 16; // img width + gap
+		scrollAmount += slideWidth;
+
+		if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
+			scrollAmount = 0;
+		}
+
+		carousel.scrollTo({
+			left: scrollAmount,
+			behavior: 'smooth'
+		});
+	}, 4000);
+
+	const observer = new IntersectionObserver((entries) => {
+	  entries.forEach(entry => {
+		if (entry.isIntersecting) {
+		  entry.target.classList.add('reveal');
+		}
+	  });
+	}, {
+	  threshold: 0.1 // bila 10% masuk skrin
+	});
+	
+	document.querySelectorAll('.animate-me').forEach(el => observer.observe(el));
+
 })(jQuery);
