@@ -3448,7 +3448,7 @@ input, select, textarea {
 	}
 
 /* Banner */
-
+/* 
 	#banner {
 		background-attachment: fixed;
 		background-color: #272833;
@@ -3460,7 +3460,30 @@ input, select, textarea {
 		position: relative;
 		text-align: center;
 		z-index: 21;
+	} */
+
+	#banner {
+		background-attachment: fixed;
+		background-color: #272833;
+		box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.25);
+		min-height: 100vh;
+		position: relative;
+		text-align: center;
+		overflow: hidden; /* supaya video tak overflow */
+		z-index: 21;
 	}
+	
+	#banner video {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: -1; /* bagi dia kat belakang content */
+		opacity: 0.6; /* optionally reduce brightness sikit */
+	}
+	
 
 		#banner:before {
 			content: '';
@@ -4119,3 +4142,19 @@ input, select, textarea {
 		border-radius: 10px; /* kalau nak rounded */
 	  }
 	  
+/* status pejabat */
+#status {
+	font-size: 2rem;
+	font-weight: bold;
+	padding: 20px;
+	border-radius: 10px;
+	width: fit-content;
+  }
+  .buka {
+	background-color: #d4edda;
+	color: #155724;
+  }
+  .tutup {
+	background-color: #f8d7da;
+	color: #721c24;
+  }
