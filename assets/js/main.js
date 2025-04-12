@@ -271,26 +271,35 @@
 
 	checkStatusPejabat();
 	setInterval(checkStatusPejabat, 60000);
+	
+  window.addEventListener("DOMContentLoaded", () => {
+    const video = document.getElementById("hero-video");
 
-	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-	const isSlow = connection && (connection.effectiveType.includes("2g") || connection.saveData);
-  
-	const banner = document.getElementById("banner-bg");
-  
-	if (isSlow) {
-	  // Guna gambar je
-	  const img = document.createElement("img");
-	  img.src = "images/maahad.webp";
-	  banner.appendChild(img);
-	} else {
-	  // Guna video
-	  const video = document.createElement("video");
-	  video.src = "images/video.mp4";
-	  video.autoplay = true;
-	  video.muted = true;
-	  video.loop = true;
-	  video.playsInline = true;
-	  banner.appendChild(video);
-	}
+    // Try play video bila page load
+    const playPromise = video.play();
+
+    // Kalau browser block, play lepas user click/scroll/touch
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("Video autoplay success 🔥");
+        })
+        .catch((error) => {
+          console.warn("Autoplay failed 😢 Trying on interaction...");
+
+          const enableVideo = () => {
+            video.play();
+            document.removeEventListener("click", enableVideo);
+            document.removeEventListener("scroll", enableVideo);
+            document.removeEventListener("touchstart", enableVideo);
+          };
+
+          document.addEventListener("click", enableVideo);
+          document.addEventListener("scroll", enableVideo);
+          document.addEventListener("touchstart", enableVideo);
+        });
+    }
+  });
+
 
 })(jQuery);
