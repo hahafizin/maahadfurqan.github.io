@@ -272,4 +272,25 @@
 	checkStatusPejabat();
 	setInterval(checkStatusPejabat, 60000);
 
+	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+	const isSlow = connection && (connection.effectiveType.includes("2g") || connection.saveData);
+  
+	const banner = document.getElementById("banner-bg");
+  
+	if (isSlow) {
+	  // Guna gambar je
+	  const img = document.createElement("img");
+	  img.src = "images/maahad.webp";
+	  banner.appendChild(img);
+	} else {
+	  // Guna video
+	  const video = document.createElement("video");
+	  video.src = "images/video.mp4";
+	  video.autoplay = true;
+	  video.muted = true;
+	  video.loop = true;
+	  video.playsInline = true;
+	  banner.appendChild(video);
+	}
+
 })(jQuery);
