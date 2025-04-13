@@ -2517,7 +2517,7 @@ input, select, textarea {
 		overflow: hidden;
 	}
 
-		.image:before {
+		/* .image:before {
 			content: '';
 			display: block;
 			position: absolute;
@@ -2527,7 +2527,7 @@ input, select, textarea {
 			width: 100%;
 			height: 100%;
 			z-index: 1;
-		}
+		} */
 
 		.image img {
 			border-radius: 4px;
@@ -3455,7 +3455,7 @@ input, select, textarea {
 		background-image: url("../../images/maahad 3.webp");
 		background-position: center center;
 		background-size: cover;
-		box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.25);
+		box-shadow: 0 0.5em 0.9em 0 rgba(0, 0, 0, 0.5);
 		min-height: 100vh;
 		position: relative;
 		text-align: center;
@@ -3494,10 +3494,10 @@ input, select, textarea {
 		}
 
 		#banner:after {
-			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 0.7)), url("images/overlay.png");;
-			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 0.7)), url("images/overlay.png");;
-			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 0.7)), url("images/overlay.png");;
-			background-image: linear-gradient(top, rgba(23, 24, 32, 0.7), rgba(23, 24, 32, 0.7)), url("images/overlay.png");;
+			background-image: -moz-linear-gradient(top, rgba(23, 24, 32, 0.8), rgba(23, 24, 32, 0.8));;
+			background-image: -webkit-linear-gradient(top, rgba(23, 24, 32, 0.8), rgba(23, 24, 32, 0.8));;
+			background-image: -ms-linear-gradient(top, rgba(23, 24, 32, 0.8), rgba(23, 24, 32, 0.8));;
+			background-image: linear-gradient(top, rgba(23, 24, 32, 0.8), rgba(23, 24, 32, 0.8));;
 			content: '';
 			display: block;
 			height: 100%;
@@ -3513,7 +3513,8 @@ input, select, textarea {
 			max-width: 95%;
 			padding: 6em;
 			position: relative;
-			text-align: right;
+			text-align: left;
+			/* text-align: right; */
 			vertical-align: middle;
 			z-index: 1;
 		}
@@ -3537,7 +3538,7 @@ input, select, textarea {
 				border-radius: 100%;
 				display: inline-block;
 				height: 8em;
-				margin-left: 3em;
+				margin-left: 0em;
 				vertical-align: middle;
 				width: 8em;
 			}
