@@ -1902,7 +1902,7 @@ input, select, textarea {
 
 		}
 
-		@media screen and (max-width: 480px) {
+		@media screen and (max-width: 600px) {
 
 			.row {
 				display: flex;
@@ -2699,7 +2699,7 @@ input, select, textarea {
 				width: 100%;
 			}
 
-		@media screen and (max-width: 480px) {
+		@media screen and (max-width: 600px) {
 
 			ul.actions:not(.fixed) {
 				-moz-flex-direction: column;
@@ -4072,7 +4072,7 @@ input, select, textarea {
 
 /* XSmall */
 
-	@media screen and (max-width: 480px) {
+	@media screen and (max-width: 600px) {
 
 		/* Basic */
 
