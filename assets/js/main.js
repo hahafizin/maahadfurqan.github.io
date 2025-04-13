@@ -272,5 +272,8 @@
 	checkStatusPejabat();
 	setInterval(checkStatusPejabat, 60000);
 
+	const year = new Date().getFullYear();
+	document.getElementById("current-year").textContent = year;
+
 
 })(jQuery);
