@@ -277,9 +277,10 @@
 
 	//fetch sumbangan dari script dari sheet dari forms
 	const target = {
-		pondok_kedua: 50000,
-		pengurusan: 30000,
-		pembelian_tanah: 100000
+		pondok: 179000,
+		pengurusan: 200000,
+		dataran: 90000,
+		baikpulih: 100000
 	  };
 	  
 	  function kiraPercent(current, goal) {
@@ -289,12 +290,13 @@
 	  fetch("https://script.google.com/macros/s/AKfycby35ww7VnCo1ScuKBg5VNd23AUS2g3vsMKUKTMtuUvVB0-udHnhI9_wwOKlajOtnzE-/exec")
 		.then(res => res.json())
 		.then(data => {
-		  const pondokPercent = kiraPercent(data.pondok_kedua, target.pondok_kedua);
+		  const pondokPercent = kiraPercent(data.pondok, target.pondok);
 		  const pengurusanPercent = kiraPercent(data.pengurusan, target.pengurusan);
-		  const tanahPercent = kiraPercent(data.pembelian_tanah, target.pembelian_tanah);
+		  const dataranPercent = kiraPercent(data.dataran, target.dataran);
+		  const baikpulihPercent = kiraPercent(data.baikpulih, target.baikpulih);
 	  
 		  document.getElementById("pondok").innerHTML = `
-			<p>Terkumpul : RM ${data.pondok_kedua.toLocaleString("ms-MY")} / RM ${target.pondok_kedua.toLocaleString("ms-MY")} (${pondokPercent}% terkumpul)</p>
+			<p>Terkumpul : RM ${data.pondok.toLocaleString("ms-MY")} / RM ${target.pondok.toLocaleString("ms-MY")} (${pondokPercent}% terkumpul)</p>
 			<div class="progress">
 			  <div class="progress-bar" style="width: ${pondokPercent}%;"></div>
 			</div>
@@ -307,15 +309,22 @@
 			</div>
 		  `;
 	  
-		  document.getElementById("tanah").innerHTML = `
-			<p>Terkumpul : RM ${data.pembelian_tanah.toLocaleString("ms-MY")} / RM ${target.pondok_kedua.toLocaleString("ms-MY")} (${tanahPercent}% terkumpul)</p>
+		  document.getElementById("dataran").innerHTML = `
+			<p>Terkumpul : RM ${data.dataran.toLocaleString("ms-MY")} / RM ${target.dataran.toLocaleString("ms-MY")} (${dataranPercent}% terkumpul)</p>
 			<div class="progress">
-			  <div class="progress-bar" style="width: ${tanahPercent}%;"></div>
+			  <div class="progress-bar" style="width: ${dataranPercent}%;"></div>
+			</div>
+		  `;
+
+		  document.getElementById("baikpulih").innerHTML = `
+			<p>Terkumpul : RM ${data.baikpulih.toLocaleString("ms-MY")} / RM ${target.baikpulih.toLocaleString("ms-MY")} (${baikpulihPercent}% terkumpul)</p>
+			<div class="progress">
+			  <div class="progress-bar" style="width: ${baikpulihPercent}%;"></div>
 			</div>
 		  `;
 	  
 		  document.getElementById("last-update").innerHTML = `
-			<p>Kemaskini terakhir: ${new Date(data.last_update).toLocaleString()}</p>
+			<p>Nilai sumbangan berikut terakhir dikemaskini pada ${new Date(data.last_update).toLocaleString("ms-MY")}.</p>
 		  `;
 		})
 		.catch(err => {
