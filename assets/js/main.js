@@ -275,5 +275,52 @@
 	const year = new Date().getFullYear();
 	document.getElementById("current-year").textContent = year;
 
+	//fetch sumbangan dari script dari sheet dari forms
+	const target = {
+		pondok_kedua: 50000,
+		pengurusan: 30000,
+		pembelian_tanah: 100000
+	  };
+	  
+	  function kiraPercent(current, goal) {
+		return Math.min((current / goal) * 100, 100).toFixed(1);
+	  }
+	  
+	  fetch("https://script.google.com/macros/s/AKfycby35ww7VnCo1ScuKBg5VNd23AUS2g3vsMKUKTMtuUvVB0-udHnhI9_wwOKlajOtnzE-/exec")
+		.then(res => res.json())
+		.then(data => {
+		  const pondokPercent = kiraPercent(data.pondok_kedua, target.pondok_kedua);
+		  const pengurusanPercent = kiraPercent(data.pengurusan, target.pengurusan);
+		  const tanahPercent = kiraPercent(data.pembelian_tanah, target.pembelian_tanah);
+	  
+		  document.getElementById("pondok").innerHTML = `
+			<p>Terkumpul : RM ${data.pondok_kedua.toLocaleString("ms-MY")} / RM ${target.pondok_kedua.toLocaleString("ms-MY")} (${pondokPercent}% terkumpul)</p>
+			<div class="progress">
+			  <div class="progress-bar" style="width: ${pondokPercent}%;"></div>
+			</div>
+		  `;
+	  
+		  document.getElementById("pengurusan").innerHTML = `
+			<p>Terkumpul : RM ${data.pengurusan.toLocaleString("ms-MY")} / RM ${target.pengurusan.toLocaleString("ms-MY")} (${pengurusanPercent}% terkumpul)</p>
+			<div class="progress">
+			  <div class="progress-bar" style="width: ${pengurusanPercent}%;"></div>
+			</div>
+		  `;
+	  
+		  document.getElementById("tanah").innerHTML = `
+			<p>Terkumpul : RM ${data.pembelian_tanah.toLocaleString("ms-MY")} / RM ${target.pondok_kedua.toLocaleString("ms-MY")} (${tanahPercent}% terkumpul)</p>
+			<div class="progress">
+			  <div class="progress-bar" style="width: ${tanahPercent}%;"></div>
+			</div>
+		  `;
+	  
+		  document.getElementById("last-update").innerHTML = `
+			<p>Kemaskini terakhir: ${new Date(data.last_update).toLocaleString()}</p>
+		  `;
+		})
+		.catch(err => {
+		  document.getElementById("sumbangan-container").innerHTML = "Tak dapat ambil data 😢";
+		  console.error("Error:", err);
+		});
 
 })(jQuery);
