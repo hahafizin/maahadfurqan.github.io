@@ -332,4 +332,67 @@
 		  console.error("Error:", err);
 		});
 
+	//fetch value transaction dari toyyibpay
+	const API_URL = 'https://script.google.com/macros/s/AKfycbzRHQW7eD2COJ7lnvYic6-5zYcaoEE5DifUe-qRw7ZXYxnAFsBmbOkuYO8bojqXSZs9/exec';
+
+	//kumpulkan multiple billcode dalam satu table
+	const billGroups = {
+		table1: ["Sedekah-Jumaat-MATAF", "Pakej-Wakaf-Perak-MATAF"],
+		table2: ["Pakej-Wakaf-Gangsa-MATAF"],
+		table3: ["Pakej-Wakaf-Biasa-MATAF"],
+		table4: ["Saham-Akhirat-1-Keluarga-RM-10", "Sumbangan-RM-2"]
+	  };
+
+	fetch(API_URL)
+		.then(response => response.json())
+		.then(data => {
+			Object.entries(billGroups).forEach(([tableId, billCodeArray]) => {
+				const combined = [];
+
+				billCodeArray.forEach(code => {
+					if (data[code]) {
+						combined.push(...data[code]);
+					}
+				});
+
+				const sorted = combined.sort((a, b) => parseFloat(b.billpaymentAmount) - parseFloat(a.billpaymentAmount));
+				const topFive = sorted.slice(0, 5);
+
+				const tbody = document.getElementById(`${tableId}Body`);
+				const loadingDiv = document.getElementById(`${tableId}Loading`);
+				loadingDiv.textContent = ''; // Clear "Loading..."
+
+				topFive.forEach((item, index) => {
+					const row = document.createElement('tr');
+
+					const ranking = document.createElement('td');
+					ranking.textContent = index + 1;
+
+					const nama = document.createElement('td');
+					nama.textContent = item.billTo;
+
+					const nilai = document.createElement('td');
+					nilai.textContent = parseFloat(item.billpaymentAmount).toFixed(2);
+
+					row.appendChild(ranking);
+					row.appendChild(nama);
+					row.appendChild(nilai);
+
+					tbody.appendChild(row);
+				});
+			});
+		})
+		.catch(err => {
+			console.error('Fetch error:', err);
+			// Kalau error, semua table loading jadi error
+			Object.keys(billGroups).forEach(tableId => {
+				const loadingDiv = document.getElementById(`${tableId}Loading`);
+				loadingDiv.textContent = 'Error loading data 😢';
+			});
+		});
+
+
+
+
+
 })(jQuery);
